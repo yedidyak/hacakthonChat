@@ -8,27 +8,64 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
-    Text,
+    Text, TextInput, TouchableOpacity,
     View
 } from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import ChatScreen from './ChatScreen';
 
 class react_native_navigation_bootstrap extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state ={
+      name: 'name',
+      channel: 'channel'
+    }
+  }
+
   render() {
     return (
         <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to React Native!
+            What's your name?
           </Text>
-          <Text style={styles.instructions}>
-            To get started, edit index.ios.js
+
+          <TextInput
+              style={{height: 40, width: 200, borderWidth: 1, borderColor: 'grey', alignSelf: 'center'}}
+              onChangeText={(name) => this.setState({name})}
+              value={this.state.name}
+          />
+
+
+          <Text style={styles.welcome}>
+            What channel do you want?
           </Text>
-          <Text style={styles.instructions}>
-            Press Cmd+R to reload,{'\n'}
-            Cmd+D or shake for dev menu
-          </Text>
+
+
+          <TextInput
+              style={{height: 40, width: 200, borderWidth: 1, borderColor: 'grey', alignSelf: 'center'}}
+              onChangeText={(channel) => this.setState({channel})}
+              value={this.state.channel}
+
+          />
+
+          <TouchableOpacity onPress={() => this.startChat()}>
+            <Text style={[styles.welcome, {color: 'blue'}]}>
+              Chat!
+            </Text>
+          </TouchableOpacity>
+
         </View>
     );
+  }
+
+  startChat() {
+    this.props.navigator.push({
+      screen: 'chatScreen',
+      title: this.state.channel,
+      passProps: this.state
+    })
   }
 }
 
@@ -50,6 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+Navigation.registerComponent('chatScreen', () => ChatScreen);
 
 Navigation.registerComponent('react-native-navigation-bootstrap', () => react_native_navigation_bootstrap);
 Navigation.startSingleScreenApp({

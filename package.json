@@ -6,6 +6,8 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "firebase": "^3.4.0",
+    "lodash": "^4.16.1",
     "react": "15.2.1",
     "react-native": "0.31.0",
     "react-native-navigation": "2.0.0-experimental.116"
